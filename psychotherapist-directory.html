@@ -6,6 +6,11 @@
     <meta name="description" content="Find qualified, accredited psychotherapists in Ireland. Search by location, specialism, or therapist name to connect with mental health professionals.">
     <title>IAHIP Psychotherapist Directory | Find Mental Health Professionals in Ireland</title>
     <style>
+        /* Mobile menu - hide by default on all devices */
+        .mobile-menu {
+            display: none; /* Hide completely by default */
+           
+        }
         :root {
             --primary: #1a6b54;
             --primary-light: #2a8b74;
@@ -387,6 +392,7 @@
             
             .mobile-menu {
                 position: fixed;
+                display: block; /* Show the container, but still transformed off-screen */
                 top: 0;
                 left: 0;
                 width: 100%;
