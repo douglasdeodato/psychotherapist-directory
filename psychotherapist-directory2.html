@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find qualified, accredited psychotherapists in Ireland. Search by location, specialism, or therapist name to connect with mental health professionals.">
+    <title>IAHIP Psychotherapist Directory | Find Mental Health Professionals in Ireland</title>
+  
+    <style>
+        :root {
+            --primary: #2c6db5;
+            --primary-light: #4a88d1;
+            --primary-dark: #1b5694;
+            --secondary: #61a0af;
+            --accent: #ffd166;
+            --light: #ffffff;
+            --dark: #333333;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-800: #343a40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray-100);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--light);
+            padding: 1.25rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu-btn {
+            display: none;
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        /* Hero section */
+        .hero {
+            background-color: var(--primary-dark);
+            background-image: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Search section */
+        .search-section {
+            background-color: var(--light);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            align-items: end;
+        }
+
+        .search-field {
+            margin-bottom: 0.5rem;
+        }
+
+        .search-field label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--gray-800);
+        }
+
+        .search-field input,
+        .search-field select {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .search-field input:focus,
+        .search-field select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(44, 109, 181, 0.2);
+        }
+
+        .search-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+            letter-spacing: 0.5px;
+        }
+
+        .search-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Therapists section */
+        .therapists-section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: var(--gray-800);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .therapists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .therapist-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--gray-200);
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .therapist-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.75rem;
+            position: relative;
+        }
+
+        .therapist-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .therapist-qualification {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .therapist-body {
+            padding: 1.75rem;
+        }
+
+        .therapist-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .info-label {
+            min-width: 130px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            flex: 1;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .therapist-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .view-profile {
+            flex: 1;
+            background-color: var(--light);
+            color: var(--primary);
+            text-align: center;
+            padding: 0.9rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .view-profile:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .contact-btn {
+            padding: 0.9rem 1.2rem;
+            background-color: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .contact-btn:hover {
+            background-color: #e5bc5c;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3.5rem;
+            list-style: none;
+        }
+
+        .pagination li {
+            margin: 0 0.25rem;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 0.6rem 1rem;
+            color: var(--primary-dark);
+            background-color: var(--light);
+            border: 1px solid var(--gray-300);
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .pagination a:hover,
+        .pagination a.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* About section */
+        .about-section {
+            background-color: var(--light);
+            padding: 5rem 0;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background-color: var(--light);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            border-left: 4px solid var(--primary);
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-card:nth-child(2) {
+            border-left-color: var(--secondary);
+        }
+
+        .about-card:nth-child(3) {
+            border-left-color: var(--accent);
+        }
+
+        .about-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .about-card p {
+            color: var(--gray-800);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu {
+                position: fixed;
+                display: block;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--primary-dark);
+                padding: 2rem;
+                z-index: 100;
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .mobile-menu.open {
+                transform: translateX(0);
+            }
+            
+            .mobile-menu-close {
+                color: white;
+                font-size: 1.5rem;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                cursor: pointer;
+            }
+            
+            .mobile-menu-links {
+                list-style: none;
+                margin-top: 3rem;
+            }
+            
+            .mobile-menu-links li {
+                margin-bottom: 1.25rem;
+            }
+            
+            .mobile-menu-links a {
+                color: white;
+                text-decoration: none;
+                font-size: 1.2rem;
+                display: block;
+                padding: 0.5rem 0;
+                transition: transform 0.3s;
+            }
+            
+            .mobile-menu-links a:hover {
+                transform: translateX(10px);
+            }
+            
+            .search-section {
+                padding: 1.75rem;
+                margin-top: -2rem;
+            }
+            
+            .search-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .therapists-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">IAHIP<span>Directory</span></div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Find a Therapist</a></li>
+                    <li><a href="#">About IAHIP</a></li>
+                    <li><a href="#">For Therapists</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-btn">☰</div>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="mobile-menu">
+        <div class="mobile-menu-close">✕</div>
+        <ul class="mobile-menu-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Find a Therapist</a></li>
+            <li><a href="#">About IAHIP</a></li>
+            <li><a href="#">For Therapists</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Find Your Path to Emotional Wellbeing</h1>
+            <p>Connect with accredited mental health professionals across Ireland who are ready to support your personal growth journey.</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-field">
+                    <label for="name">Therapist Name</label>
+                    <input type="text" id="name" placeholder="Enter therapist name...">
+                </div>
+                <div class="search-field">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="">Any Location</option>
+                        <option value="dublin">Dublin</option>
+                        <option value="cork">Cork</option>
+                        <option value="galway">Galway</option>
+                        <option value="limerick">Limerick</option>
+                        <option value="waterford">Waterford</option>
+                        <option value="belfast">Belfast</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <label for="specialization">Specialization</label>
+                    <select id="specialization">
+                        <option value="">Any Specialization</option>
+                        <option value="anxiety">Anxiety</option>
+                        <option value="depression">Depression</option>
+                        <option value="trauma">Trauma</option>
+                        <option value="couples">Couples Therapy</option>
+                        <option value="addiction">Addiction</option>
+                        <option value="grief">Grief & Loss</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <label for="approach">Therapeutic Approach</label>
+                    <select id="approach">
+                        <option value="">Any Approach</option>
+                        <option value="cbt">Cognitive Behavioral Therapy (CBT)</option>
+                        <option value="psychodynamic">Psychodynamic</option>
+                        <option value="humanistic">Humanistic</option>
+                        <option value="integrative">Integrative</option>
+                        <option value="gestalt">Gestalt</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <button class="search-button" id="search-btn">Search Therapists</button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="therapists-section">
+            <div class="section-header">
+                <h2>Accredited Psychotherapists</h2>
+                <p>Our network consists of fully accredited members of the Irish Association of Humanistic & Integrative Psychotherapy (IAHIP), ensuring the highest standards of professional care.</p>
+            </div>
+            
+            <div class="therapists-grid" id="therapists-grid">
+                <!-- Therapist cards will be populated by JS -->
+            </div>
+            
+            <ul class="pagination" id="pagination">
+                <li><a href="#" class="active">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">Next →</a></li>
+            </ul>
+        </section>
+        
+        <section class="about-section">
+            <div class="section-header">
+                <h2>Why Choose IAHIP Directory?</h2>
+                <p>Making informed decisions about your mental health care is essential. Our directory is designed to help you find the right professional match.</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>Trust & Credibility</h3>
+                    <p>All therapists in our directory are fully accredited members of the Irish Association of Humanistic & Integrative Psychotherapy (IAHIP), ensuring you're connected with qualified, ethical professionals who adhere to strict standards of practice.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Personalized Matching</h3>
+                    <p>Our comprehensive search tools help you find therapists based on location, specialization, therapeutic approach, and other factors that matter to you, making it easier to find someone who can address your specific needs.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Simplified Journey</h3>
+                    <p>Taking the first step toward better mental health should be straightforward. Our user-friendly platform provides detailed profiles and direct contact options, removing barriers between you and the support you deserve.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>IAHIP</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Code of Ethics</a></li>
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Complaints Procedure</a></li>
+                        <li><a href="#">News & Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Clients</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Find a Therapist</a></li>
+                        <li><a href="#">What is Psychotherapy?</a></li>
+                        <li><a href="#">Common Questions</a></li>
+                        <li><a href="#">Client Rights</a></li>
+                        <li><a href="#">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Therapists</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Join IAHIP</a></li>
+                        <li><a href="#">Update Your Profile</a></li>
+                        <li><a href="#">Continuing Education</a></li>
+                        <li><a href="#">Supervision</a></li>
+                        <li><a href="#">Professional Development</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Irish Association of Humanistic & Integrative Psychotherapy</li>
+                        <li>40 Northumberland Avenue</li>
+                        <li>Dun Laoghaire, Co. Dublin</li>
+                        <li>Email: info@iahip.org</li>
+                        <li>Phone: (01) 284 1665</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Irish Association of Humanistic & Integrative Psychotherapy. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample therapist data - in a real implementation, this would come from a database
+        const therapists = [
+            {
+                id: 1,
+                name: "Dr. Sarah Murphy",
+                qualification: "Ph.D., MIAHIP, ICP",
+                location: "Dublin",
+                areas: ["Anxiety", "Depression", "Trauma"],
+                approach: "Integrative",
+                languages: "English, Irish",
+                fees: "€80 - €120",
+                sessions: "In-person, Online"
+            },
+            {
+                id: 2,
+                name: "Michael O'Connor",
+                qualification: "MSc, MIAHIP",
+                location: "Cork",
+                areas: ["Relationships", "Self-esteem", "Grief"],
+                approach: "Humanistic",
+                languages: "English",
+                fees: "€70 - €90",
+                sessions: "In-person"
+            },
+            {
+                id: 3,
+                name: "Emma Byrne",
+                qualification: "MA, MIAHIP, ICP",
+                location: "Galway",
+                areas: ["Addiction", "Trauma", "Family issues"],
+                approach: "Psychodynamic",
+                languages: "English, Spanish",
+                fees: "€75 - €100",
+                sessions: "In-person, Online"
+            },
+            {
+                id: 4,
+                name: "Dr. John Kelly",
+                qualification: "PsyD, MIAHIP",
+                location: "Limerick",
+                areas: ["Depression", "Anxiety", "LGBTQ+"],
+                approach: "CBT, Integrative",
+                languages: "English",
+                fees: "€85 - €110",
+                sessions: "In-person, Online"
+            },
+            {
+                id: 5,
+                name: "Aoife Doyle",
+                qualification: "MSc, MIAHIP",
+                location: "Waterford",
+                areas: ["Couples therapy", "Relationship issues", "Sexuality"],
+                approach: "Systemic, Humanistic",
+                languages: "English",
+                fees: "€80 - €120",
+                sessions: "In-person"
+            },
+            {
+                id: 6,
+                name: "David Walsh",
+                qualification: "MA, MIAHIP, ICP",
+                location: "Dublin",
+                areas: ["Men's issues", "Anger management", "Stress"],
+                approach: "Gestalt, CBT",
+                languages: "English",
+                fees: "€75 - €95",
+                sessions: "In-person, Online"
+            }
+        ];
+
+        // Function to render therapist cards
+        function renderTherapists(therapistsArray) {
+            const therapistsGrid = document.getElementById('therapists-grid');
+            therapistsGrid.innerHTML = '';
+            
+            if (therapistsArray.length === 0) {
+                therapistsGrid.innerHTML = '<p class="no-results">No therapists found matching your criteria. Please try different search parameters.</p>';
+                return;
+            }
+            
+            therapistsArray.forEach(therapist => {
+                const card = document.createElement('div');
+                card.className = 'therapist-card';
+                
+                card.innerHTML = `
+                    <div class="therapist-header">
+                        <div class="therapist-name">${therapist.name}</div>
+                        <div class="therapist-qualification">${therapist.qualification}</div>
+                    </div>
+                    <div class="therapist-body">
+                        <div class="therapist-info">
+                            <div class="info-item">
+                                <span class="info-label">Location:</span>
+                                <span class="info-value">${therapist.location}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Specializes in:</span>
+                                <span class="info-value">${therapist.areas.join(", ")}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Approach:</span>
+                                <span class="info-value">${therapist.approach}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Languages:</span>
+                                <span class="info-value">${therapist.languages}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Fees:</span>
+                                <span class="info-value">${therapist.fees}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Sessions:</span>
+                                <span class="info-value">${therapist.sessions}</span>
+                            </div>
+                        </div>
+                        <div class="therapist-actions">
+                            <a href="#" class="view-profile">View Profile</a>
+                            <button class="contact-btn">✉</button>
+                        </div>
+                    </div>
+                `;
+                
+                therapistsGrid.appendChild(card);
+            });
+        }
+
+         // Initial rendering
+         renderTherapists(therapists);
+
+        // Search functionality
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const nameQuery = document.getElementById('name').value.toLowerCase();
+            const locationQuery = document.getElementById('location').value.toLowerCase();
+            const specializationQuery = document.getElementById('specialization').value.toLowerCase();
+            const approachQuery = document.getElementById('approach').value.toLowerCase();
+            
+            const filteredTherapists = therapists.filter(therapist => {
+                // Filter by name
+                if (nameQuery && !therapist.name.toLowerCase().includes(nameQuery)) {
+                    return false;
+                }
+                
+                // Filter by location
+                if (locationQuery && !therapist.location.toLowerCase().includes(locationQuery)) {
+                    return false;
+                }
+                
+                // Filter by specialization
+                if (specializationQuery) {
+                    const hasSpecialization = therapist.areas.some(area => 
+                        area.toLowerCase().includes(specializationQuery)
+                    );
+                    if (!hasSpecialization) {
+                        return false;
+                    }
+                }
+                
+                // Filter by approach
+                if (approachQuery && !therapist.approach.toLowerCase().includes(approachQuery)) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            renderTherapists(filteredTherapists);
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.add('open');
+        });
+
+        document.querySelector('.mobile-menu-close').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.remove('open');
+        });
+        
+// Pagination functionality (simplified for demo)
+document.getElementById('pagination').addEventListener('click', function(e) {
+    e.preventDefault();
+    if (e.target.tagName === 'A') {
+        const paginationLinks = document.querySelectorAll('.pagination a');
+        paginationLinks.forEach(link => link.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        // In a real implementation, this would fetch different pages of results
+        // For now, we'll just show the same therapists
+        window.scrollTo({
+            top: document.querySelector('.therapists-section').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
+});
+
+// Schema.org structured data for SEO
+const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "IAHIP Psychotherapist Directory",
+    "description": "Find qualified, accredited psychotherapists in Ireland. Search by location, specialism, or therapist name.",
+    "url": "https://iahip.org/Psychotherapist-Directory",
+    "telephone": "(01) 284 1665",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "40 Northumberland Avenue",
+        "addressLocality": "Dun Laoghaire",
+        "addressRegion": "Co. Dublin",
+        "addressCountry": "IE"
+    },
+    "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+    }
+};
+
+// Add schema.org JSON-LD
+const script = document.createElement('script');
+script.type = 'application/ld+json';
+script.text = JSON.stringify(structuredData);
+document.head.appendChild(script);
+</script>
+</body>
+</html>

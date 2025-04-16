@@ -5,7 +5,450 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Find qualified, accredited psychotherapists in Ireland. Search by location, specialism, or therapist name to connect with mental health professionals.">
     <title>IAHIP Psychotherapist Directory | Find Mental Health Professionals in Ireland</title>
-    <link rel="stylesheet" href="style.css">
+  
+
+    <style>
+         /* Mobile menu - hide by default on all devices */
+ .mobile-menu {
+    display: none; /* Hide completely by default */
+   
+}
+:root {
+    --primary: #353a50;
+    --primary-light: #4a4f68;
+    --primary-dark: #282c3e;
+    --secondary: #5a637a;
+    --accent: #6b7280;
+    --light: #e5e7eb;
+    --dark: #1e2130;
+    --gray-100: #d1d5db;
+    --gray-200: #a7acb9;
+    --gray-300: #7d8191;
+    --gray-800: #2b2f3d;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 1.5rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.hero {
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+}
+
+.search-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: -3rem;
+    position: relative;
+    z-index: 10;
+}
+
+.search-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.search-field {
+    margin-bottom: 1rem;
+}
+
+.search-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.search-field input,
+.search-field select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-field input:focus,
+.search-field select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(26, 107, 84, 0.2);
+}
+
+.search-button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.search-button:hover {
+    background-color: var(--primary-light);
+}
+
+.therapists-section {
+    padding: 3rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--secondary);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.therapists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.therapist-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.therapist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.therapist-header {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.therapist-body {
+    padding: 1.5rem;
+}
+
+.therapist-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-dark);
+}
+
+.therapist-qualification {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.therapist-info {
+    margin-bottom: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.info-label {
+    min-width: 100px;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.info-value {
+    flex: 1;
+}
+
+.therapist-actions {
+    display: flex;
+    margin-top: 1.5rem;
+}
+
+.view-profile {
+    flex: 1;
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 0.75rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.view-profile:hover {
+    background-color: var(--primary-light);
+}
+
+.contact-btn {
+    margin-left: 0.5rem;
+    padding: 0.75rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-btn:hover {
+    background-color: #e89200;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    list-style: none;
+}
+
+.pagination li {
+    margin: 0 0.25rem;
+}
+
+.pagination a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: var(--secondary);
+    background-color: white;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.pagination a:hover,
+.pagination a.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.about-section {
+    background-color: var(--gray-100);
+    padding: 3rem 0;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.about-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.about-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+footer {
+    background-color: var(--gray-800);
+    color: white;
+    padding: 3rem 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-column h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--gray-200);
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--gray-300);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.copyright {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-300);
+    text-align: center;
+    color: var(--gray-300);
+    font-size: 0.9rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    .mobile-menu {
+        position: fixed;
+        display: block; /* Show the container, but still transformed off-screen */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--primary);
+        padding: 2rem;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+    
+    .mobile-menu.open {
+        transform: translateX(0);
+    }
+    
+    .mobile-menu-close {
+        color: white;
+        font-size: 1.5rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+    }
+    
+    .mobile-menu-links {
+        list-style: none;
+        margin-top: 2rem;
+    }
+    
+    .mobile-menu-links li {
+        margin-bottom: 1rem;
+    }
+    
+    .mobile-menu-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+    
+    .search-section {
+        padding: 1.5rem;
+        margin-top: -1.5rem;
+    }
+    
+    .search-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header h2 {
+        font-size: 1.75rem;
+    }
+}
+    </style>
 </head>
 <body>
     <header>
