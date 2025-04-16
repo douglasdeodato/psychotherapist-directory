@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find qualified, accredited psychotherapists in Ireland. Search by location, specialism, or therapist name to connect with mental health professionals.">
+    <title>IAHIP Psychotherapist Directory | Find Mental Health Professionals in Ireland</title>
+    
+    <style>
+        /* Base Styles */
+        :root {
+            --dark-bg: #121212;
+            --surface-1: #1e1e1e;
+            --surface-2: #2d2d2d;
+            --surface-3: #3d3d3d;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+            --accent-teal: #64ffda;
+            --accent-pink: #ff7597;
+            --accent-purple: #b388ff;
+            --primary: #bb86fc;
+            --primary-variant: #3700b3;
+            --error: #cf6679;
+            --radius: 4px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* Magazine-style Header */
+        .top-bar {
+            background-color: var(--surface-1);
+            padding: 0.75rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--surface-3);
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .tagline {
+            font-style: italic;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--text-primary);
+        }
+
+        .login-btn {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(187, 134, 252, 0.1);
+        }
+
+        /* Magazine Nav with Underline */
+        .main-nav {
+            background-color: var(--surface-1);
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.75rem 0;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section with Full-width Image */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: var(--surface-1);
+            margin-bottom: 3rem;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(90deg, rgba(18, 18, 18, 0.9) 0%, rgba(18, 18, 18, 0.7) 50%, rgba(18, 18, 18, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 0 2rem;
+            margin-left: 5%;
+        }
+
+        .hero-content h1 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-content h1::after {
+            content: '';
+            position: absolute;
+            height: 8px;
+            width: 60%;
+            background-color: var(--accent-pink);
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--primary);
+            color: #000;
+            padding: 0.9rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(187, 134, 252, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-teal);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        .cta-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Search Bar with Dark Design */
+        .search-bar-container {
+            background-color: var(--surface-1);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-heading {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--surface-3);
+            padding-bottom: 1rem;
+        }
+
+        .search-heading h2 {
+            font-size: 1.5rem;
+        }
+
+        .search-heading p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input-group {
+            flex: 1 1 200px;
+            position: relative;
+        }
+
+        .search-input-label {
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            background-color: var(--surface-1);
+            padding: 0 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--surface-2);
+            border: 1px solid var(--surface-3);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 130px;
+        }
+
+        .search-btn:hover {
+            background-color: var(--accent-teal);
+        }
+
+        /* Magazine-style Grid Layout */
+        .main-content {
+            padding-bottom: 5rem;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--surface-3);
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 40px;
+            background-color: var(--accent-teal);
+            bottom: -1rem;
+            left: 0;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-top: 0.5rem;
+        }
+
+        .view-all {
+            color: var(--accent-teal);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-all:hover {
+            color: var(--text-primary);
+        }
+
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .therapist-card {
+            background-color: var(--surface-1);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            background-color: var(--surface-2);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .therapist-card:hover .card-img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        }
+
+        .card-location {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-subtitle {
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background-color: rgba(187, 134, 252, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--surface-2);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .price {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .view-btn:hover {
+            color: var(--accent-teal);
+        }
+
+        /* Featured Section with Large Card */
+        .featured-section {
+            margin-bottom: 5rem;
+        }
+
+        .featured-therapist {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background-color: var(--surface-1);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .featured-image {
+            position: relative;
+            height: 100%;
+            min-height: 400px;
+            overflow: hidden;
+            background-color: var(--surface-2);
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .featured-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent-teal);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            width: fit-content;
+        }
+
+        .featured-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .featured-subtitle {
+            color: var(--accent-purple);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-description {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .featured-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .featured-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .featured-cta {
+            background-color: var(--primary);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(187, 134, 252, 0.3);
+            width: fit-content;
+        }
+
+        .featured-cta:hover {
+            background-color: var(--accent-teal);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: var(--surface-1);
+            padding: 5rem 0;
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '"';
+            position: absolute;
+            font-size: 20rem;
+            color: var(--surface-2);
+            top: -5rem;
+            left: -2rem;
+            font-family: 'Georgia', serif;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonials-section::after {
+            content: '"';
+            position: absolute;
+            font-size: 20rem;
+            color: var(--surface-2);
+            bottom: -15rem;
+            right: -2rem;
+            font-family: 'Georgia', serif;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            background-color: var(--surface-2);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-content {
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .author-location {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+
+        /* Info Sections */
+        .info-section {
+            margin-bottom: 5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background-color: var(--surface-1);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-card:nth-child(2) {
+            border-top-color: var(--accent-pink);
+        }
+
+        .info-card:nth-child(3) {
+            border-top-color: var(--accent-teal);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--surface-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card:nth-child(2) .info-icon {
+            color: var(--accent-pink);
+        }
+
+        .info-card:nth-child(3) .info-icon {
+            color: var(--accent-teal);
+        }
+
+        .info-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Dark Footer */
+        .footer {
+            background-color: var(--surface-2);
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--surface-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: #000;
+            transform: translateY(-5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--surface-3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-nav a {
+            color: var(--text-tertiary);
+        }
+
+        .footer-nav a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-therapist {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .tagline {
+                display: none;
+            }
+            
+            .menu-button {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .search-wrapper {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero {
+                height: auto;
+                padding: 6rem 0;
+            }
+            
+            .hero-gradient {
+                background: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.8));
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+                text-align: center;
+            }
+            
+            .hero-content h1::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .footer-nav {
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .featured-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .top-bar-right {
+                display: none;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="logo">IAHIP<span>Directory</span></div>
+                <div class="tagline">Finding your path to wellbeing</div>
+            </div>
+            <div class="top-bar-right">
+                <button class="theme-toggle">☀</button>
+                <button class="login-btn">Therapist Login</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Find a Therapist</a></li>
+                <li><a href="#">About IAHIP</a></li>
+                <li><a href="#">For Therapists</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <button class="menu-button">☰</button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <h1>Your Journey to Healing Starts Here</h1>
+            <div class="hero-subtitle">Connect with accredited psychotherapists across Ireland</div>
+            <a href="#" class="cta-button">
+                <span>Find Your Therapist</span>
+                <span class="cta-icon">→</span>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Search Section -->
+    <section class="container">
+        <div class="search-bar-container">
+            <div class="search-heading">
+                <h2>Find the right match for your needs</h2>
+                <p>Use our search filters to connect with a qualified professional</p>
+            </div>
+            <div class="search-wrapper">
+                <div class="search-input-group">
+                    <label class="search-input-label">Location</label>
+                    <select class="search-input" id="location">
+                        <option value="">Any Location</option>
+                        <option value="dublin">Dublin</option>
+                        <option value="cork">Cork</option>
+                        <option value="galway">Galway</option>
+                        <option value="limerick">Limerick</option>
+                        <option value="waterford">Waterford</option>
+                        <option value="belfast">Belfast</option>
+                    </select>
+                </div>
+                <div class="search-input-group">
+                    <label class="search-input-label">Specialization</label>
+                    <select class="search-input" id="specialization">
+                        <option value="">Any Specialization</option>
+                        <option value="anxiety">Anxiety</option>
+                        <option value="depression">Depression</option>
+                        <option value="trauma">Trauma</option>
+                        <option value="couples">Couples Therapy</option>
+                        <option value="addiction">Addiction</option>
+                        <option value="grief">Grief & Loss</option>
+                    </select>
+                </div>
+                <div class="search-input-group">
+                    <label class="search-input-label">Session Type</label>
+                    <select class="search-input" id="session-type">
+                        <option value="">Any Session Type</option>
+                        <option value="in-person">In-Person Only</option>
+                        <option value="online">Online Only</option>
+                        <option value="both">Both In-Person & Online</option>
+                    </select>
+                </div>
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Therapist -->
+    <section class="container featured-section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Featured Therapist</h2>
+                <p class="section-subtitle">Get to know our highlighted mental health professional</p>
+            </div>
+        </div>
+        
+        <div class="featured-therapist">
+            <div class="featured-image">
+                <!-- Placeholder div instead of image -->
+                <div style="width: 100%; height: 100%; background-color: #3d3d3d; display: flex; align-items: center; justify-content: center; color: #666;">
+                    Featured Therapist Photo
+                </div>
+            </div>
+            <div class="featured-content">
+                <div class="featured-label">
+                    <span>✓</span>
+                    <span>Featured Professional</span>
+                </div>
+                <h3 class="featured-title">Dr. Sarah Murphy</h3>
+                <div class="featured-subtitle">Ph.D., MIAHIP, ICP</div>
+                <p class="featured-description">
+                    Dr. Sarah Murphy specializes in helping clients overcome anxiety, depression, and trauma. With over 10 years of experience, she uses an integrative approach tailored to each client's unique needs and challenges.
+                </p>
+                <div class="featured-details">
+                    <div class="featured-detail">
+                        <span class="detail-label">Location</span>
+                        <span class="detail-value">Dublin</span>
+                    </div>
+                    <div class="featured-detail">
+                        <span class="detail-label">Languages</span>
+                        <span class="detail-value">English, Irish</span>
+                    </div>
+                    <div class="featured-detail">
+                        <span class="detail-label">Session Types</span>
+                        <span class="detail-value">In-person, Online</span>
+                    </div>
+                    <div class="featured-detail">
+                        <span class="detail-label">Fees</span>
+                        <span class="detail-value">€80 - €120</span>
+                    </div>
+                </div>
+                <a href="#" class="featured-cta">View Full Profile</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Therapists Section -->
+    <section class="container main-content">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Our Accredited Therapists</h2>
+                <p class="section-subtitle">All therapists in our directory are fully accredited members of IAHIP</p>
+            </div>
+            <a href="#" class="view-all">View All Therapists <span>→</span></a>
+        </div>
+        
+        <div class="magazine-grid">
+            <!-- Therapist Card 1 -->
+            <article class="therapist-card">
+                <div class="card-header">
+                    <!-- Placeholder div instead of image -->
+                    <div style="width: 100%; height: 100%; background-color: #3d3d3d; display: flex; align-items: center; justify-content: center; color: #666;">
+                        Therapist Photo
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-location">
+                            <span>📍</span>
+                            <span>Dublin</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Michael O'Connor</h3>
+                    <div class="card-subtitle">MSc, MIAHIP</div>
+                    <div class="specialty-tags">
+                        <span class="tag">Relationships</span>
+                        <span class="tag">Self-esteem</span>
+                        <span class="tag">Grief</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="price">€70 - €90</div>
+                        <a href="#" class="view-btn">View Profile <span>→</span></a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Therapist Card 2 -->
+            <article class="therapist-card">
+                <div class="card-header">
+                    <!-- Placeholder div instead of image -->
+                    <div style="width: 100%; height: 100%; background-color: #3d3d3d; display: flex; align-items: center; justify-content: center; color: #666;">
+                        Therapist Photo
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-location">
+                            <span>📍</span>
+                            <span>Galway</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Emma Byrne</h3>
+                    <div class="card-subtitle">MA, MIAHIP, ICP</div>
+                    <div class="specialty-tags">
+                        <span class="tag">Addiction</span>
+                        <span class="tag">Trauma</span>
+                        <span class="tag">Family issues</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="price">€75 - €100</div>
+                        <a href="#" class="view-btn">View Profile <span>→</span></a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Therapist Card 3 -->
+            <article class="therapist-card">
+                <div class="card-header">
+                    <!-- Placeholder div instead of image -->
+                    <div style="width: 100%; height: 100%; background-color: #3d3d3d; display: flex; align-items: center; justify-content: center; color: #666;">
+                        Therapist Photo
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-location">
+                            <span>📍</span>
+                            <span>Limerick</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Dr. John Kelly</h3>
+                    <div class="card-subtitle">PsyD, MIAHIP</div>
+                    <div class="specialty-tags">
+                        <span class="tag">Depression</span>
+                        <span class="tag">Anxiety</span>
+                        <span class="tag">LGBTQ+</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="price">€85 - €110</div>
+                        <a href="#" class="view-btn">View Profile <span>→</span></a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Therapist Card 4 -->
+            <article class="therapist-card">
+                <div class="card-header">
+                    <!-- Placeholder div instead of image -->
+                    <div style="width: 100%; height: 100%; background-color: #3d3d3d; display: flex; align-items: center; justify-content: center; color: #666;">
+                        Therapist Photo
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-location">
+                            <span>📍</span>
+                            <span>Waterford</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Aoife Doyle</h3>
+                    <div class="card-subtitle">MSc, MIAHIP</div>
+                    <div class="specialty-tags">
+                        <span class="tag">Couples therapy</span>
+                        <span class="tag">Relationship issues</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="price">€80 - €120</div>
+                        <a href="#" class="view-btn">View Profile <span>→</span></a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Client Testimonials</h2>
+                    <p class="section-subtitle">Read about how therapy has helped others on their journey</p>
+                </div>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">
+                        Finding my therapist through the IAHIP directory changed my life. The detailed profiles helped me connect with someone who truly understood my needs and challenges.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <div class="author-name">Maeve</div>
+                            <div class="author-location">Dublin</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-content">
+                        After struggling for years, I found a therapist who specializes in trauma. The search filters made it easy to find someone with exactly the right expertise for my situation.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div class="author-info">
+                            <div class="author-name">James</div>
+                            <div class="author-location">Cork</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-content">
+                        I was nervous about starting therapy, but having access to detailed information about therapists helped me feel more comfortable making that first contact.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div class="author-info">
+                            <div class="author-name">Sarah</div>
+                            <div class="author-location">Galway</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Info Section -->
+    <section class="container info-section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Why Choose IAHIP Directory</h2>
+                <p class="section-subtitle">We're committed to connecting you with qualified professionals</p>
+            </div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">✓</div>
+                <h3 class="info-title">Verified Credentials</h3>
+                <p class="info-text">All therapists listed are fully accredited members of the Irish Association of Humanistic & Integrative Psychotherapy (IAHIP), ensuring the highest standards of professional care.</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">🔍</div>
+                <h3 class="info-title">Perfect Matching</h3>
+                <p class="info-text">Our comprehensive search tools help you find therapists based on location, specialization, and approach that best match your specific needs and preferences.</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">🌟</div>
+                <h3 class="info-title">Simplified Journey</h3>
+                <p class="info-text">Taking the first step toward better mental health should be straightforward. Our platform removes barriers between you and the support you deserve.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">IAHIP<span>Directory</span></div>
+                    <p class="footer-desc">The Irish Association of Humanistic & Integrative Psychotherapy is committed to maintaining professional standards and promoting mental health awareness across Ireland.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">f</a>
+                        <a href="#" class="social-link">t</a>
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">i</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="footer-heading">For Clients</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Find a Therapist</a></li>
+                        <li><a href="#">What is Psychotherapy?</a></li>
+                        <li><a href="#">Common Questions</a></li>
+                        <li><a href="#">Client Rights</a></li>
+                        <li><a href="#">Mental Health Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-heading">For Therapists</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Join IAHIP</a></li>
+                        <li><a href="#">Update Your Profile</a></li>
+                        <li><a href="#">Continuing Education</a></li>
+                        <li><a href="#">Supervision</a></li>
+                        <li><a href="#">Professional Development</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="footer-contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>40 Northumberland Avenue<br>Dun Laoghaire, Co. Dublin</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="contact-icon">✉</div>
+                        <div>info@iahip.org</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>(01) 284 1665</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div>&copy; 2025 Irish Association of Humanistic & Integrative Psychotherapy. All Rights Reserved.</div>
+                <div class="footer-nav">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle button
+        document.querySelector('.theme-toggle').addEventListener('click', function() {
+            alert('Theme toggle functionality would be implemented here');
+        });
+        
+        // Mobile menu button
+        document.querySelector('.menu-button').addEventListener('click', function() {
+            alert('Mobile menu would open here');
+        });
+        
+        // Search functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const location = document.getElementById('location').value;
+            const specialization = document.getElementById('specialization').value;
+            const sessionType = document.getElementById('session-type').value;
+            
+            // Implement search functionality
+            console.log('Search with:', { location, specialization, sessionType });
+            
+            // In a real implementation, this would filter therapists
+            alert('Search functionality would filter therapists here');
+        });
+    </script>
+</body>
+</html>
